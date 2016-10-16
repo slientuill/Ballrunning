@@ -6,11 +6,10 @@ package com.example.slien.androidanimation;
 public class BallThread extends Thread{
     Moveable father;
     boolean flag=false;//线程执行标识
-    int sleepSpan=10;//休眠时间
+    int sleepSpan=50;//休眠时间
     double current;//当前时间
-    int MultR=1+(int)(8*Math.random());
-    int MultX=1+(int)(3*Math.random());
-    int MultY=1+(int)(3*Math.random());
+    int MultX=1+(int)(2*Math.random());
+    int MultY=1+(int)(2*Math.random());
     public BallThread(Moveable father){
         this.father=father;
         this.flag=true;
@@ -20,7 +19,7 @@ public class BallThread extends Thread{
             current = System.nanoTime();
             double timeSpanX = ((current - father.timeX) / 1000 / 1000 / 1000); // 获取水平方向走过的时间
             father.x = (int) (father.startX + MultX*father.v_x * timeSpanX);
-            father.r=(int)(father.startR+MultR*timeSpanX);
+            father.r=(int)(father.startR+father.v_r*timeSpanX);
             if (father.bfall) {
                 double timeSpanY = ((current - father.timeY) / 1000 / 1000 / 1000);
                 father.y=(int)(father.startY+MultY*father.v_y*timeSpanY);
@@ -42,17 +41,7 @@ public class BallThread extends Thread{
                     father.startVY = father.v_y;
                     father.startR=father.r;
                 }
-                /*if(father.collision){
-                    father.v_y = 0 - father.v_y;
-                    father.v_x = 0 - father.v_x;
-                    father.startX = father.x;
-                    father.timeX = System.nanoTime();
-                    father.startY = father.y;
-                    father.timeY = System.nanoTime();
-                    father.startVY = father.v_y;
-                    father.startR=father.r;
-                    father.collision=false;
-                }*/
+
             }
             else if (father.x>= 0) {// 通过X坐标判断球是否移出了挡板
                 father.timeY = System.nanoTime();

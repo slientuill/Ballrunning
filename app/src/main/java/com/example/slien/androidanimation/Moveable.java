@@ -20,6 +20,7 @@ public class Moveable {
     float v_y=0f;
     float r;//半径
     float startR;
+    float v_r=0f;
     double timeX;//x的运动时间
     double timeY;//Y的时间
     Bitmap bitmap=null;//图片？？？
@@ -27,7 +28,7 @@ public class Moveable {
     boolean bfall=false;//滑落测试
     boolean collision=false;
     int color;
-    public Moveable(int x,int y,float r,Bitmap bitmap,int color){
+    public Moveable(int x,int y,float r,Bitmap bitmap,int color,boolean poorson){
         this.startX=x;
         this.x=x;
         this.startY=y;
@@ -40,6 +41,12 @@ public class Moveable {
         this.v_x*=8;
         this.v_y=-80+(int)(80*Math.random());
         this.v_y*=8;
+        if(poorson){
+            this.v_r=0-(1+(int)(8*Math.random()));
+        }
+        else{
+            this.v_r=1+(int)(8*Math.random());
+        }
         this.color=color;
         bt=new BallThread(this);
         bt.start();
@@ -49,5 +56,8 @@ public class Moveable {
         Paint paint=new Paint();//使用java graphic 画图
         paint.setColor(color);
         canvas.drawCircle(x,y,r,paint);
+    }
+    public void shutdown(){
+        bt.interrupt();
     }
 }
