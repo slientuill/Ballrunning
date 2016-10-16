@@ -76,6 +76,7 @@ public class BallView extends SurfaceView implements SurfaceHolder.Callback {
             if(m.r>300){
                 alMovable.get(i).startR=10;
             }
+            //what??????????????????
 
         }
         return alMovable.size();
